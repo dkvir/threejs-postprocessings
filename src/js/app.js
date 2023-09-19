@@ -12,6 +12,9 @@ import { AnimationUtils } from 'three';
 import CANNON from 'cannon';
 
 const canvas = document.querySelector('.canvas');
+const guiOpt = {
+  background: 0x808080,
+}
 
 // const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvas });
 // renderer.setClearColor(0x000000);
@@ -25,13 +28,14 @@ const renderer = new WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x808080)
+scene.background = new THREE.Color(guiOpt.background)
 
 const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
 
 const orbit = new OrbitControls(camera, renderer.domElement);
 
 const gui = new GUI({width:360})
+gui.addColor(guiOpt, 'background').onChange((value)=> scene.background.set(value))
 
 // Camera positioning
 camera.position.set(0, 0, 200);
@@ -54,6 +58,7 @@ const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 composer.addPass(glitchPass);
 
+
 function createImage() {
   const canvas = document.createElement( 'canvas' );
   canvas.width = 256;
@@ -65,6 +70,8 @@ function createImage() {
 
   return canvas;
 }
+
+const colors = [0xf1f152, 0xffffff]
 
 function render() {
   const geometry = new THREE.SphereGeometry( 50, Math.random() * 64, Math.random() * 32 );
@@ -80,7 +87,6 @@ function render() {
   scene.remove( mesh );
 
   // clean up
-
   geometry.dispose();
   material.dispose();
   texture.dispose();

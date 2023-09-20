@@ -13,7 +13,7 @@ import CANNON from 'cannon';
 
 const canvas = document.querySelector('.canvas');
 const guiOpt = {
-  background: 0x808080,
+  background: 0x56111111,
 }
 
 // const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvas });
@@ -71,7 +71,6 @@ function createImage() {
   return canvas;
 }
 
-const colors = [0xf1f152, 0xffffff]
 
 function render() {
   const geometry = new THREE.SphereGeometry( 50, Math.random() * 64, Math.random() * 32 );
